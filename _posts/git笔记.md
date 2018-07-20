@@ -100,7 +100,7 @@ Untracked files 是指未跟踪到的文件，指有文件更改了但是没有c
 * `git push -u $remoteName $branchName`push到远程分支
 ![push](git笔记/7.png)
 输入github的用户名密码就自动开始push了
-* `git remove -v` 打印远程仓库信息
+* `git remote -v` 打印远程仓库信息
 
 ![remote](git笔记/6.png)
 fetch是下载地址，push是上传地址
