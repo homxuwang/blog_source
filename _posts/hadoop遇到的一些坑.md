@@ -14,18 +14,18 @@ tags: [大数据,hadoop]
 
 这里根据上面博客的内容简要摘录：
 >增加调试信息，执行命令
->```
->export HADOOP_ROOT_LOGGER=DEBUG,console
->hadoop fs -text est/data/origz/access.log.gz
->```
+```
+export HADOOP_ROOT_LOGGER=DEBUG,console
+hadoop fs -text est/data/origz/access.log.gz
+```
 >
 >这样就能够看到报错的信息
 >解决方法：
 >修改`/HADOOP_HOME/etc/hadoop/中的hadoop_env.sh`在头部添加
->```
-> export HADOOP_COMMON_LIB_NATIVE_DIR="/usr/local/hadoop/lib/native/"
->export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=/usr/local/hadoop/lib/native/"
->```
+```
+export HADOOP_COMMON_LIB_NATIVE_DIR="/usr/local/hadoop/lib/native/"
+export HADOOP_OPTS="$HADOOP_OPTS -Djava.library.path=/usr/local/hadoop/lib/native/"
+```
 >再次执行./start-dfs.sh 
 
 问题解决。
