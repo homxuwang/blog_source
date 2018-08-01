@@ -292,7 +292,7 @@ hadoop jar jar包目录 组类 (在idea中右键选中然后 CopyReference) 要�
         job.setNumReduceTasks(4);
 ```
 
-然后编译，将执行的类名和输入的数据改一下`hadoop jar /home/hadoop/lib/hdfs-1.0-SNAPSHOT.jar hadoop.hdfs.mapreduce.PartitionerApp hdfs://localhost:9000//hdfsapi/animal.txt hdfs://localhost:9000/hdfsapi/Partitionresult`
+然后编译，将执行的类名和输入的数据改一下`hadoop jar /home/hadoop/lib/hdfs-1.0-SNAPSHOT.jar hadoop.hdfs.mapreduce.PartitionerApphadoop.hdfs.mapreduce.PartitionerApp hdfs://localhost:9000//hdfsapi/animal.txt hdfs://localhost:9000/hdfsapi/Partitionresult`
 
 运行后查看结果
 ![](MapReduce的补充和WordCount简单实战2/19.png)
@@ -349,9 +349,20 @@ Partition会把符合规则的key送到指定的reduce处理，分别生成相�
 
 再次重新启动yarn
 
-使用mapreduce下的例子进行测试`/usr/local/hadoop/share/hadoop/mapreduce$ hadoop jar hadoop-mapreduce-examples-2.9.0.jar pi 2 3`
+使用mapreduce下的例子进行测试
+```
+/usr/local/hadoop/share/hadoop/mapreduce$ hadoop jar hadoop-mapreduce-examples-2.9.0.jar pi 2 3
+```
 
-我在启动后仍然出现问题，重启了hdfs和yarn都没用，不过后来尝试关闭`jobhistory`(`./sbin/mr-jobhistory-daemon.sh stop historyserver`)再重启(`./sbin/mr-jobhistory-daemon.sh start historyserver`)竟然可以了
+我在启动后仍然出现问题，重启了hdfs和yarn都没用，不过后来尝试关闭`jobhistory`
+```
+./sbin/mr-jobhistory-daemon.sh stop historyserver
+```
+再重启
+```
+./sbin/mr-jobhistory-daemon.sh start historyserver
+```
+竟然可以了
 
 ![](MapReduce的补充和WordCount简单实战2/24.png)
 
