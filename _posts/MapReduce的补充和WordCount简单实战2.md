@@ -45,7 +45,7 @@ tags: [大数据,hadoop]
 然后复写`map`和`reduce`方法
 
 完整代码：
-```
+```java
 package hadoop.hdfs.mapreduce;
 
 import org.apache.hadoop.conf.Configuration;
@@ -195,7 +195,7 @@ hadoop jar jar包目录 组类 (在idea中右键选中然后 CopyReference) 要�
 
 在JAVA中完成自动删除功能
 在//step1 和 //step2 中间清理已经存在的目录
-```
+```java
  //step1.5 准备删除已经存在的文件目录
         Path outputPath = new Path(args[1]);
         FileSystem fileSystem = FileSystem.get(configuration);
@@ -246,7 +246,7 @@ hadoop jar jar包目录 组类 (在idea中右键选中然后 CopyReference) 要�
 
 在ieda中，拷贝一份`WordCountApp`的代码，命名为`PartitionerApp`.
 按照空格拆分其实就是`动物名字`和`动物数量`，所以在`Mapper`类的`map`方法中修改代码：
-```
+```java
  /**
      * Map:读取输入的文件
      */
@@ -266,7 +266,7 @@ hadoop jar jar包目录 组类 (在idea中右键选中然后 CopyReference) 要�
 ```
 
 还要新建一个`Partition`类
-```
+```java
  public static class MyPartitioner extends Partitioner<Text,LongWritable>{
         @Override
         public int getPartition(Text key, LongWritable value, int numPartitions) {
@@ -285,7 +285,7 @@ hadoop jar jar包目录 组类 (在idea中右键选中然后 CopyReference) 要�
 ```
 
 在`step6` 和 `step7`之间添加代码：
-```
+```java
  //step6.5 设置job的Partition
         job.setPartitionerClass(MyPartitioner.class);
         //step6.5.1 设置reduce的数量，不然不生效,这里设置4个，因为MyPartitioner类中有4种情况
@@ -308,7 +308,7 @@ Partition会把符合规则的key送到指定的reduce处理，分别生成相�
 找到mapreduce的配置`mapred-site.xml`
 
 在`<configuration></configuration>`中间增加
-```
+```xml
 <property>
     <name>mapreduce.jobhistory.address</name>
     <value>localhost:10020</value>
@@ -340,7 +340,7 @@ Partition会把符合规则的key送到指定的reduce处理，分别生成相�
 ![](MapReduce的补充和WordCount简单实战2/23.png)
 
 还要配置`yarn-site.xml`.在`<configuration></configuration>`中添加
-```
+```xml
 <property>  
     <name>yarn.log-aggregation-enable</name>  
         <value>true</value>  

@@ -33,7 +33,7 @@ tags: [大数据,hadoop,HDFS]
 ![](IDEA+JAVA编写HDFS代码/6.png)
 接着配置开发hadoop需要的依赖。
 如图，添加
-```
+```xml
 <dependency>
     <groupId>org.apache.hadoop</groupId>
     <artifactId>hadoop-client</artifactId>
@@ -50,7 +50,7 @@ tags: [大数据,hadoop,HDFS]
 ![](IDEA+JAVA编写HDFS代码/8.png)
 
 以下是单元测试代码，其中的路径参数是我自己系统上的路径，在开发时自行替换为自己的开发测试路径。
-```
+```java
 package hadoop.hdfs.hdfs;
 
 import org.apache.hadoop.conf.Configuration;
