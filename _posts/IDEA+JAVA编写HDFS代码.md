@@ -33,7 +33,7 @@ tags: [大数据,hadoop,HDFS]
 ![](IDEA+JAVA编写HDFS代码/6.png)
 接着配置开发hadoop需要的依赖。
 如图，添加
-```xml
+```
 <dependency>
     <groupId>org.apache.hadoop</groupId>
     <artifactId>hadoop-client</artifactId>

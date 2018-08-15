@@ -308,7 +308,7 @@ Partition会把符合规则的key送到指定的reduce处理，分别生成相�
 找到mapreduce的配置`mapred-site.xml`
 
 在`<configuration></configuration>`中间增加
-```xml
+```
 <property>
     <name>mapreduce.jobhistory.address</name>
     <value>localhost:10020</value>
@@ -340,7 +340,7 @@ Partition会把符合规则的key送到指定的reduce处理，分别生成相�
 ![](MapReduce的补充和WordCount简单实战2/23.png)
 
 还要配置`yarn-site.xml`.在`<configuration></configuration>`中添加
-```xml
+```
 <property>  
     <name>yarn.log-aggregation-enable</name>  
         <value>true</value>  
