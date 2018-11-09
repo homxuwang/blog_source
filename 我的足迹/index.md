@@ -2,10 +2,10 @@
 title: 我的足迹
 date: 2017-09-04 15:30:46
 ---
-<script src="/js/src/echarts.min.js"></script>
-<script src="/js/src/china.js"></script>
-<script src="/js/src/jquery-3.2.1.min.js"></script>
-<script src="/js/src/bmap.min.js"></script>
+<script src="/js/echarts.min.js"></script>
+<script src="/js/china.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/bmap.min.js"></script>
 
 	
 <div id="Map" style="height: 500px">
