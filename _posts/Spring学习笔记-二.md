@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class User {	
 	private String name;
 	private Integer age;
-	private Car car;	
+	private Car car;
   public User(){
   System.out.println("User 的空参构造方法被调用");
   }
