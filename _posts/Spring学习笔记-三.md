@@ -7,7 +7,7 @@ tags: [Spring]
 # Spring结合JDBC
 其实，Spring中提供了一个可以操作数据库的对象，这个对象封装了各种JDBC技术，可以用它来操作数据库.——`JDBCtemplate`
 需要的依赖包：
-![依赖包](Spring学习笔记三/1.png)
+![依赖包](Spring学习笔记-三/1.png)
 
 ## 不使用Spring操作数据库
 ```java
@@ -160,9 +160,9 @@ public class UserDaoImpl implements UserDao {
 ```
 
 然后需要配置到Spring中，让Spring管理：
-![配置关系](Spring学习笔记三/2.png)
+![配置关系](Spring学习笔记-三/2.png)
 在配置文件中配置：
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
 	<!-- 1.将DataSource连接池放入Spring容器 -->
@@ -323,8 +323,8 @@ public class UserDaoImpl extends JdbcDaoSupport implements UserDao {
 }
 ```
 那么在配置文件中可以简化配置，不需要配置`JDBCTemplate`。
-![配置关系2](Spring学习笔记三/3.png)
-```xml
+![配置关系2](Spring学习笔记-三/3.png)
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
 
@@ -351,7 +351,7 @@ Password=12345
 ```
 
 更改配置文件中的配置:
-```xml
+```
 ...
 	<!-- 指定Properties的位置 -->
 	<context:property-placeholder location="classpath:db.properties"/>
@@ -447,7 +447,7 @@ PROPAGATION_NESTED 如果当前事务存在，则嵌套事务执行
 ### 不添加事务部分
 
 定义一个转钱的场景，自行建一个表，包含id,姓名和钱数。
-![表](Spring学习笔记三/4.png)
+![表](Spring学习笔记-三/4.png)
 定义接口,包含加钱和减钱两个方法：
 ```java
 package my.study.dao;
@@ -509,9 +509,9 @@ public class AccountServiceImpl implements AccountService {
 	}
 }
 ```
-![Spring中配置依赖关系](Spring学习笔记三/5.png)
+![Spring中配置依赖关系](Spring学习笔记-三/5.png)
 书写配置文件:
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd ">
 	<!-- 指定Properties的位置 -->
@@ -559,13 +559,13 @@ public class Demo {
 ```
 
 刷新查看数据库结果:
-![结果](Spring学习笔记三/6.png)
+![结果](Spring学习笔记-三/6.png)
 
 这是没有添加事务的程序.没有添加事务，就容易发生各种问题(前面提到的事务的问题)。
 
 ### 添加事务
 首先需要配置核心事务管理器,它依赖于连接池：
-```xml
+```
 ...
 	<!-- 事务核心管理器,封装了所有事务操作. 依赖于连接池 -->
 	<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -577,7 +577,7 @@ public class Demo {
 #### 编码式
 需要在代码中进行事务管理，需要书写重复代码。并不推荐.
 编码式需要事务模板对象，在xml中配置,要配置tt属性:
-```xml
+```
 ...
 <!-- 事务模板对象 -->
 	<bean name="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate" >
@@ -634,12 +634,12 @@ public class AccountServiceImpl implements AccountService {
 
 #### xml配置
 配置AOP事务，AOP事务的配置和效果如图：
-![AOP配置关系](Spring学习笔记三/7.png)
+![AOP配置关系](Spring学习笔记-三/7.png)
 进行xml配置之前，还需要导入新的命名空间约束，`tx`约束,并在`XMLEditor`下添加这个约束和`aop`约束:
-![导入命名空间依赖](Spring学习笔记三/8.png)
+![导入命名空间依赖](Spring学习笔记-三/8.png)
 导入方法见`Spring学习笔记-一`和`Spring学习笔记-二`中相关部分。
 最终需要的配置如下：
-![结果](Spring学习笔记三/8.png)
+![结果](Spring学习笔记-三/9.png)
 
 xml中的各个配置：
 `beans`:最基本的根元素
@@ -648,7 +648,7 @@ xml中的各个配置：
 `tx`:配置事务通知
 ##### 配置事务通知
 接下来配置事务通知，是以方法为单位进行配置的，在配置文件中新增配置事务的部分：
-```xml
+```
 <!-- 配置事务通知 -->
 	<tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>		
@@ -674,7 +674,7 @@ propagation:传播行为：
 read-only:"false",这个就不多解释了吧
 
 当然，配置的`name`方法名可以用`*`通配符来进行匹配相似的方法名，可以使用的例子如下：
-```xml
+```
 <tx:advice id="txAdvice" transaction-manager="transactionManager">
 		<tx:attributes>		
 		<tx:method name="save*" isolation="REPEATABLE_READ" propagation="REQUIRED" read-only="false" />
@@ -691,7 +691,7 @@ read-only:"false",这个就不多解释了吧
 注意其中`get`和`find`的只读为`true`
 ##### 配置将事务织入目标对象
 配置完事务通知要进行配置织入:
-```xml
+```
 <!-- 配置织入 -->
 	<aop:config >
 		<!-- 配置切点表达式 -->
@@ -703,7 +703,7 @@ read-only:"false",这个就不多解释了吧
 
 其中切面的构成是通知加切点,advice-ref：通知的名称;pointcut-ref：切点的名称.
 完整的xml配置:
-```xml
+```
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd ">
 	<!-- 指定Properties的位置 -->
@@ -773,7 +773,7 @@ read-only:"false",这个就不多解释了吧
 #### 注解配置
 
 注解配置只需将上面的编制织入和配置事务通知替换为:
-```xml
+```
 <!-- 开启注解管理AOP事务 -->
 	<tx:annotation-driven/>
 ```
