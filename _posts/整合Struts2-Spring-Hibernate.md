@@ -1088,3 +1088,7 @@ dao层在上面已经实现好了
 </body>
 </html>
 ```
+
+# 项目总览
+![项目总览](整合Struts2-Spring-Hibernate/19.png)
+![项目总览](整合Struts2-Spring-Hibernate/20.png)
