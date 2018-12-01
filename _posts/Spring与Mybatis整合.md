@@ -39,7 +39,7 @@ SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(in);
 	http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.0.xsd">
 
 	<!-- 加载配置文件 -->
-	<context:property-placeholder location=""/>
+	<context:property-placeholder location="classpath:db.properties"/>
 	<!-- dbcp数据源(配置数据库连接池) -->
 	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
     <property name="driverClassName" value="${jdbc.driver}" />
