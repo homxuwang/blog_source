@@ -1,7 +1,7 @@
 ---
 title: Spring学习笔记-三
 date: 2018-11-13 15:24:11
-tags: [Spring]
+tags: [Spring,学习笔记]
 ---
 
 # Spring结合JDBC

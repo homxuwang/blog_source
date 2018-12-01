@@ -1,7 +1,7 @@
 ---
 title: Mybatis学习笔记-二
 date: 2018-11-21 19:56:31
-tags:
+tags: [学习笔记]
 ---
 # parameterType(输入类型)
 

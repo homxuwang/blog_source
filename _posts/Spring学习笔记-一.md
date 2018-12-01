@@ -1,7 +1,7 @@
 ---
 title: Spring学习笔记-一
 date: 2018-11-09 15:04:24
-tags: [Spring,JavaWeb]
+tags: [Spring,JavaWeb,学习笔记]
 ---
 
  Spring是一个一站式框架。Spring可以看做是一个容器，所有对象都可以在其中进行管理

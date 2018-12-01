@@ -1,7 +1,7 @@
 ---
 title: 整合Struts2+Spring+Hibernate
 date: 2018-11-16 09:13:41
-tags: [Spring,SSH]
+tags: [Spring,SSH,学习笔记]
 ---
 
 项目所需依赖包：

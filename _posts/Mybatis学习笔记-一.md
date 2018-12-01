@@ -1,7 +1,7 @@
 ---
 title: Mybatis学习笔记-一
 date: 2018-11-19 20:56:22
-tags:
+tags: [学习笔记]
 ---
 # Mybatis架构图
 ![Mybatis架构图](Mybatis学习笔记-一/1.png)

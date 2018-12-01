@@ -1,7 +1,7 @@
 ---
 title: SpringMVC+Mybatis整合
 date: 2018-12-01 16:07:37
-tags:
+tags: [学习笔记]
 ---
 控制层采用springmvc、持久层使用mybatis实现。
 首先参考[Spring与Mybatis整合](https://homxuwang.github.io/2018/11/29/Spring%E4%B8%8EMybatis%E6%95%B4%E5%90%88/)

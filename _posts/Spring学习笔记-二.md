@@ -1,7 +1,7 @@
 ---
 title: Spring学习笔记-二
 date: 2018-11-10 09:13:56
-tags: [JavaWeb,Spring]
+tags: [JavaWeb,Spring,学习笔记]
 ---
 
 # 使用注解配置Spring

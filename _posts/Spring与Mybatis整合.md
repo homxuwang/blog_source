@@ -1,9 +1,9 @@
 ---
 title: Spring与Mybatis整合
 date: 2018-11-29 09:05:21
-tags:
+tags: [学习笔记]
 ---
-在不是用Spring的情况下，创建sqlSessionFactory需要两步:
+在不使用Spring的情况下，创建sqlSessionFactory需要两步:
 ```java
 //1.加载核心配置文件
 String resource = "sqlMapConfig.xml";
