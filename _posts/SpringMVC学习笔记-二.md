@@ -248,6 +248,7 @@ public class DateConverter implements Converter<String, Date> {
 在修改日期处填写日期`2016:12-04 16_43-52`进行测试:
 ![修改成功](SpringMVC学习笔记-二/11.png)
 
+
 # 附录
 
 ## editItem.jsp
