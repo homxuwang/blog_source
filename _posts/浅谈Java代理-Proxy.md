@@ -113,6 +113,10 @@ The film is over.This is an advertisement!
 
 # 动态代理
 
+动态代理的代理类并不需要在Java代码中定义，而是在运行时动态生成的。相比于静态代理， 动态代理的优势在于可以很方便的对代理类的函数进行统一的处理，而不用修改每个代理类的函数。通过使用动态代理，可以做一个“统一指示”，对所有代理类的方法进行统一处理，而不用逐一修改每个方法。
+
+与静态代理相比，抽象角色、真实角色都没有变化。变化的只有代理类。
+
 上一节代码中 Cinema 类是代理，需要手动编写代码让 Cinema 实现 Movie 接口，而在动态代理中，我们可以让程序在运行的时候自动在内存中创建一个实现 Movie 接口的代理，而不需要去定义 Cinema 这个类。这就是它被称为动态的原因。
 
 还是使用上面的例子
@@ -134,16 +138,16 @@ public class Avengers4 implements Movie {
 }
 ```
 
-关键的不同在于代理类的实现:
+关键的不同在于代理类的实现,在使用动态代理时，需要定义一个位于代理类与委托类之间的中介类，也叫动态代理类，这个类被要求实现InvocationHandler接口.:
 ```java
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
-public class CinemaWanDa implements InvocationHandler {
+public class Cinema implements InvocationHandler {
 
     private Object moive;
 
-    public CinemaWanDa(Object moive){
+    public Cinema(Object moive){
         this.moive = moive;
     }
 
@@ -156,6 +160,7 @@ public class CinemaWanDa implements InvocationHandler {
     }
 }
 ```
+当调用代理类对象的方法时，这个“调用”会转送到中介类的invoke方法中，参数method标识了具体调用的是代理类的哪个方法，args为这个方法的参数。
 
 进行测试:
 ```java
@@ -164,14 +169,15 @@ import java.lang.reflect.Proxy;
 
 public class ProxyTest {
     public static void main(String[] args){
+        //要代理的真实对象
         RealMovie realmovie = new RealMovie();
-
-        InvocationHandler cinemaWanDa = new CinemaWanDa(realmovie);
-
+        //创建中介类实例
+        InvocationHandler cinema = new Cinema(realmovie);
+        //动态产生一个代理类
         Movie dynamicProxyOfMovie = (Movie) Proxy.newProxyInstance(realmovie.getClass().getClassLoader(),
                 realmovie.getClass().getInterfaces(),
-                cinemaWanDa);
-
+                cinema);
+        //通过代理类，执行doSomething方法
         dynamicProxyOfMovie.play();
     }
 }
@@ -185,12 +191,18 @@ The film is over.
 ```
 
 在上面动态代理的例子中,并没有像静态代理那样为 Moive 接口实现一个代理类，但最终它仍然实现了相同的功能，这其中的差别，就是之前讨论的动态代理所谓“动态”的原因。
+一个典型的动态代理可分为以下四个步骤：
+* 创建抽象角色(Movie)
+* 创建真实角色(Avengers4)
+* 通过实现InvocationHandler接口创建中介类(Cinema)
+* 通过场景类，动态生成代理类
 
 # 动态代理语法
 
 ## Proxy
 
 动态代理对象,使用Proxy的静态方法newProxyInstance方法。
+
 ```java
 public static Object newProxyInstance(ClassLoader loader,
                                       Class<?>[] interfaces,
@@ -342,6 +354,7 @@ The film is over.
 ```
 
 同样是通过 Proxy.newProxyInstance() 方法，却产生了 Movie 和 WorldCup 两种接口的实现类代理，这就是动态代理的强大之处。
+
 # 动态代理的秘密
 Proxy 能够动态产生不同接口类型的代理，是通过传递的接口，然后通过反射动态生成了一个接口实例。
 
@@ -401,8 +414,25 @@ newProxyInstance()方法:
     }
 ```
 
-newProxyInstance 方法创建了一个实例，它是通过 cl 这个 Class 文件的构造方法反射生成。cl 由 getProxyClass0() 方法获取。
+Proxy类的newProxyInstance方法，**主要业务逻辑**如下：
+```java
+//生成代理类class，并加载到jvm中
+Class<?> cl = getProxyClass0(loader, interfaces);
+//获取代理类参数为InvocationHandler的构造函数
+final Constructor<?> cons = cl.getConstructor(constructorParams);
+//生成代理类，并返回
+return cons.newInstance(new Object[]{h});
+```
 
+上面代码做了三件事：
+
+* 根据传入的参数interfaces动态生成一个类，它实现interfaces中的接口，该例中即Movie接口的play方法。假设动态生成的类为$Proxy0。
+
+* 通过传入的classloder,将刚生成的$Proxy0类加载到jvm中。
+* 利用中介类，调用$Proxy0的$Proxy0(InvocationHandler)构造函数，创建$Proxy0类的实例，其InvocationHandler属性，为我们创建的中介类。
+
+newProxyInstance 方法创建了一个实例，它是通过 cl 这个 Class 文件的构造方法反射生成。cl 由 getProxyClass0() 方法获取。
+上面的核心，就在于getProxyClass0方法：
 ```java
 private static Class<?> getProxyClass0(ClassLoader loader,
                                            Class<?>... interfaces) {
@@ -416,8 +446,11 @@ private static Class<?> getProxyClass0(ClassLoader loader,
         return proxyClassCache.get(loader, interfaces);
     }
 ```
+在Proxy类中有个属性proxyClassCache，这是一个WeakCache类型的静态变量。它指示了类加载器和代理类之间的映射。所以proxyClassCache的get方法用于根据类加载器来获取Proxy类，如果已经存在则直接从cache中返回，如果没有则创建一个映射并更新cache表。
 
 直接通过缓存获取，如果获取不到，注释说会通过 ProxyClassFactory 生成。(这里就不贴ProxyClassFactory方法的全部源码,可以去上面的连接查看)
+
+
 ProxyClassFactory的部分源码:
 ```java
  /**
@@ -460,16 +493,16 @@ ProxyClassFactory的部分源码:
           }
          }
 ```
+
 这个类的注释说，通过指定的 ClassLoader 和 接口数组 用工厂方法生成 proxy class。 然后这个 proxy class 的名字是：**包名+$Proxy+id序号**
 
-生成的过程，核心代码如下：
+跟一下代理类的创建流程：
+调用Factory类的get方法，而它又调用了ProxyClassFactory类的apply方法，最终找到下面一行代码：
 ```java
- byte[] proxyClassFile = ProxyGenerator.generateProxyClass(
-                proxyName, interfaces, accessFlags);
-
-return defineClass0(loader, proxyName,
-                proxyClassFile, 0, proxyClassFile.length);
+byte[] proxyClassFile = ProxyGenerator.generateProxyClass(
+              proxyName, interfaces, accessFlags);
 ```
+就是它，生成了代理类。
 
 下面检测检测一下动态生成的代理类的名字是不是包名+$Proxy+id序号,在测试类中添加如下代码:
 ```java
@@ -514,6 +547,7 @@ WorldCup 接口的代理类名是：`com.sun.proxy.$Proxy1`
 红框中 `$Proxy0`就是通过 Proxy 动态生成的。
 `$Proxy0`实现了要代理的接口。
 `$Proxy0`通过调用 InvocationHandler来执行任务。
+
 # 代理的作用
 
 主要作用，还是在不修改被代理对象的源码上，进行功能的增强。
@@ -554,3 +588,5 @@ Class proxyClass = Proxy.getProxyClass(null,interfaces);
 * [Java8-Source-Code](https://github.com/mynawang/Java8-Source-Code)
 
 * [Java三种代理模式：静态代理、动态代理和cglib代理](https://segmentfault.com/a/1190000011291179)
+
+* [说说JAVA代理模式](http://www.importnew.com/26116.html)
