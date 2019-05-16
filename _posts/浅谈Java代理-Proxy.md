@@ -429,7 +429,7 @@ return cons.newInstance(new Object[]{h});
 * 根据传入的参数interfaces动态生成一个类，它实现interfaces中的接口，该例中即Movie接口的play方法。假设动态生成的类为$Proxy0。
 
 * 通过传入的classloder,将刚生成的$Proxy0类加载到jvm中。
-* 利用中介类，调用$Proxy0的$Proxy0(InvocationHandler)构造函数，创建$Proxy0类的实例，其InvocationHandler属性，为我们创建的中介类。
+* 利用中介类，调用 $Proxy0的$Proxy0(InvocationHandler)构造函数，创建$Proxy0类的实例，其InvocationHandler属性，为我们创建的中介类。
 
 newProxyInstance 方法创建了一个实例，它是通过 cl 这个 Class 文件的构造方法反射生成。cl 由 getProxyClass0() 方法获取。
 上面的核心，就在于getProxyClass0方法：
@@ -555,7 +555,7 @@ WorldCup 接口的代理类名是：`com.sun.proxy.$Proxy1`
 这在 AOP 面向切面编程领域经常见。
 
 >代理类是在程序运行过程中创建。然而一旦被创建,就变成了常规类，与虚拟机中的任何其他类没有什么区别。
->所有的代理诶都拓展于Proxy类。一个代理类只有一个实例域——调用处理器，它定义在Proxy的超类中。为了履行代理对象的职责，所需要的任何附加数据都必须存储在调用处理器中。
+>所有的代理类都拓展于Proxy类。一个代理类只有一个实例域——调用处理器，它定义在Proxy的超类中。为了履行代理对象的职责，所需要的任何附加数据都必须存储在调用处理器中。
 
 例如上面我们代理Avengers4对象时,Cinema包装了实际的对象。(因为电影要在电影院播放)。
 
