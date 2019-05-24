@@ -1,7 +1,7 @@
 ---
 title: windows下开启和使用mysql的binlog
 date: 2019-05-09 16:14:44
-tags: [mysql,系统开发记录]
+tags: [数据库,系统开发记录]
 ---
 Mysql Binlog是二进制格式的日志文件。Binlog是用来记录Mysql内部对数据库的改动（只记录对数据的修改操作），主要用于数据库的主从复制以及增量恢复。
 
