@@ -161,8 +161,8 @@ public class UserFactory {
 	 -->
 	<bean name="User2" class="my.study.bean.UserFactory" factory-method="createUser"></bean>
 	
-	<!-- 方式3：静态工厂创建
-		调用UserFactory的createUser方法创建名为user2的对象，放入容器
+	<!-- 方式3：实例工厂创建
+		调用UserFactory的createUser方法创建名为user3的对象，放入容器
 	 -->
 	<bean name="User3" factory-bean="userFactory" factory-method="createUser2"></bean>
 	<bean name="userFactory" class="my.study.bean.UserFactory"></bean>
