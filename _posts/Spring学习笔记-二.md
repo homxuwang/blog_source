@@ -141,12 +141,12 @@ public class User {
 首先Spring能够为容器中管理的对象生成动态代理对象。以前要使用`Proxy.newProxyInstance(xx,xx,xx)`生成代理对象.而现在Spring只需通过配置就可以生成代理对象。通过这个功能，就可以使用AOP思想进行开发。
 
 Srping实现AOP的原理：
-1.`动态代理`---但是，被代理对象必须要实现接口，才能产生代理对象.没有借口不能实现动态代理.如果有接口，优先使用动态代理
+1.`动态代理`---但是，被代理对象必须要实现接口，才能产生代理对象.没有接口不能实现动态代理.如果有接口，优先使用动态代理
 
-2.`cglib代理`---cglib代理属于第三方代理技术.可以对任何类生成代理.代理的原理是对目标对象进行继承代理. 如果目标对象被final修饰.那么该类无法被cglib代理.如果没有借口，实现此代理
+2.`cglib代理`---cglib代理属于第三方代理技术.可以对任何类生成代理.代理的原理是对目标对象进行继承代理. 如果目标对象被final修饰.那么该类无法被cglib代理.如果没有接口，实现此代理
 
 手动实现AOP:
-1.创建一个`UserService`接口，定义`UserServiceImpl`类要实现这个接口的方法..创建UserService代理工厂`UserServiceProxyFactory`,提供一个工厂方法，返回`UserService`对象.在方法中生成代理并返回UserService对象.
+1.创建一个`UserService`接口，定义`UserServiceImpl`类要实现这个接口的方法.创建UserService代理工厂`UserServiceProxyFactory`,提供一个工厂方法，返回`UserService`对象.在方法中生成代理并返回UserService对象.
 
 现在需要在调用`UserServiceImpl`的每一个方法(`save`,`delete`,`update`,`find`)之前都进行一个操作(比如打开事务),之后都进行另一个操作(比如提交事务).
 ```java
@@ -337,7 +337,7 @@ true
 
 `Advice`(通知/增强):所谓通知是指拦截到 Joinpoint 之后所要做的事情就是通知.通知分为前置通知,后置通知,异常通知,最终通知,环绕通知(切面要完成的功能)。即增强的代码,也就是上面的例子中的`System.out.println("打开事务!");`和`System.out.println("提交事务!");`
 
-`Introduction`(引介):引介是一种特殊的通知在不修改类代码的前提下, ntroduction 可以在运行期为类动态地添加一些方法或 Field.
+`Introduction`(引介):引介是一种特殊的通知在不修改类代码的前提下, Introduction 可以在运行期为类动态地添加一些方法或 Field.
 
 `Target`(目标对象):代理的目标对象.即被代理对象
 

@@ -2,10 +2,8 @@
 title: 我的足迹
 date: 2017-09-04 15:30:46
 ---
-<script src="/js/echarts.min.js"></script>
-<script src="/js/china.js"></script>
-<script src="/js/jquery-3.2.1.min.js"></script>
-<script src="/js/bmap.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/echarts.min.js"></script>
+<script type="text/javascript" src="http://echarts.baidu.com/gallery/vendors/echarts/map/js/china.js"></script>
 
 	
 <div id="Map" style="height: 500px">
