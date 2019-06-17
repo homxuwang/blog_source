@@ -230,7 +230,7 @@ public interface InvocationHandler {
 `invoke`方法中的三个参数:
 * proxy 代理对象.即我们上面的`RealMovie`
 * method 代理对象调用的方法
-args 调用的方法中的参数
+* args 调用的方法中的参数
 
 >无论何时调用代理对象的方法,调用处理器的invoke方法都会被调用,并向其传递Method对象和原始的调用参数。调用处理器必须给出处理调用的方式。
 
