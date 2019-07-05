@@ -1,7 +1,7 @@
 ---
 title: 浅析IOC和DI
 date: 2019-06-06 11:20:48
-tags: [SPRING]
+tags: [Spring]
 ---
 
 # 概念
