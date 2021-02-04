@@ -263,3 +263,5 @@ getMenuItems = () => {
 ![image](./react-transition-group结合多个styled-components组件动画不生效的问题/2.gif)
 
 之前在学习完react后，就没有进行实践和练习，这次算是回顾+学习，遇到这个问题也是琢磨了很久，但是至于原因目前还没有摸清楚。
+
+补充： 官网使用的<TransitionGroup>和<CSSTransition>标签搭配，见：https://reactcommunity.org/react-transition-group/transition-group
